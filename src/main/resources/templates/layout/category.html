@@ -2,10 +2,12 @@
 
 
 
-<ul class="footer-links">
-    <li><a href="#">Hot deals</a></li>
-    <li><a href="#">Laptops</a></li>
-    <li><a href="#">Smartphones</a></li>
-    <li><a href="#">Cameras</a></li>
-    <li><a href="#">Accessories</a></li>
-</ul>
+<div  xmlns:th="http://www.thymeleaf.org" >
+    <ul class="footer-links " th:each="c : ${cates} ">
+        <li class="mb-1"><!--/*@thymesVar id="cates" type=""*/-->
+        <a th:href="@{|/product/store?cid=${c.id}|}"> [[${c.name}]]</a>
+
+        </li>
+
+    </ul>
+</div>

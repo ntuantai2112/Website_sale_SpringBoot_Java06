@@ -1,0 +1,10 @@
+.product-img img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
