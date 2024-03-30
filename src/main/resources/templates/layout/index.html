@@ -30,9 +30,12 @@
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 
+<!--		CDN AngularJS-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
 
     </head>
-	<body>
+	<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 		<!-- HEADER -->
 		<header th:replace="/layout/header.html">
 	
@@ -56,6 +59,8 @@
 		<script th:src="@{/js/nouislider.min.js}"></script>
 		<script th:src="@{/js/jquery.zoom.min.js}"></script>
 		<script th:src="@{/js/main.js}"></script>
+
+		<script src="/js/shopping-cart-app.js"></script>
 
 	</body>
 </html>

@@ -30,6 +30,10 @@
 				 <!-- Custom stlylesheet -->
 				 <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}"/>
 
+
+		<!--		CDN AngularJS-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
 		<style>
 
 			.product-img img {
@@ -46,7 +50,7 @@
 		</style>
 
     </head>
-	<body>
+	<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 		<!-- HEADER -->
 		<header  th:replace="/layout/header.html">
 		
@@ -104,7 +108,9 @@
 											</div>
 										</div>
 										<div class="add-to-cart">
-											<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> <a href="">add to cart</a></button>
+											<button class="add-to-cart-btn" th:attr="ng-click=@{|cart.add(${p.id})|}"
+
+											><i class="fa fa-shopping-cart"></i> <a href="">add to cart</a></button>
 										</div>
 									</div>
 								</div>
@@ -191,5 +197,7 @@
 		<script th:src="@{/js/nouislider.min.js}"></script>
 		<script th:src="@{/js/jquery.zoom.min.js}"></script>
 		<script th:src="@{/js/main.js}"></script>
+
+		<script src="/js/shopping-cart-app.js"></script>
 	</body>
 </html>
