@@ -2,7 +2,7 @@
 var app = angular.module('shopping-cart-app', []);
 
 // Định nghĩa một controller cho ứng dụng
-app.controller('shopping-cart-ctrl', function ($scope, $http) {
+app.controller('shopping-cart-ctrl', function ($scope, $http,$location) {
 
 
 //    QUẢN LÝ GIỎ HÀNG
@@ -27,6 +27,7 @@ app.controller('shopping-cart-ctrl', function ($scope, $http) {
                     this.saveToLocalStorage();
                     // Hiển thị thông báo thành công
                     this.showSuccessAlert();
+                    alert("Product added to cart successfully.");
                 })
             }
 
@@ -45,10 +46,12 @@ app.controller('shopping-cart-ctrl', function ($scope, $http) {
 
         //  Xóa sản phẩm vào giỏ hàng
         remove(id) {
-
-            var index = this.items.findIndex(item => item.id == id);
-            this.items.splice(index,1);
-            this.saveToLocalStorage();
+            // Hiển thị hộp thoại xác nhận trước khi xóa
+            if (confirm("Are you sure you want to remove this item from your cart?")) {
+                var index = this.items.findIndex(item => item.id == id);
+                this.items.splice(index, 1);
+                this.saveToLocalStorage();
+            }
         },
 
         // Xóa danh sách sản phẩm vào giỏ hàng
@@ -91,11 +94,12 @@ app.controller('shopping-cart-ctrl', function ($scope, $http) {
     $scope.cart.loadFromLocalStorage();
 
 
+    // Kiểm tra xem một mục có phải là active hay không dựa trên địa chỉ URL hiện tại
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
     };
 
-    // Khai báo hàm để đặt lớp active cho thẻ được chọn
+    // Đặt địa chỉ URL hiện tại khi người dùng click vào một mục
     $scope.setActive = function (viewLocation) {
         $location.path(viewLocation);
     };

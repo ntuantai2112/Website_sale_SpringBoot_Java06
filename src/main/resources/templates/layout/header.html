@@ -12,18 +12,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
 	<style>
-		/* CSS để hiển thị alert */
-		.alert {
-			position: fixed;
-			top: 20px;
-			right: 20px;
-			z-index: 9999;
-			display: none;
-		}
 
-		.alert.show {
-			display: block;
-		}
 	</style>
 
 
@@ -67,13 +56,11 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
+								<form style="display: flex">
 									<select class="input-select">
-										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										<option  th:each="c : ${cates}" th:text="${c.name}" ></option>
 									</select>
-									<input class="input" placeholder="Search here">
+									<input class="input" placeholder="Search here" >
 									<button class="search-btn">Search</button>
 								</form>
 							</div>
@@ -81,10 +68,7 @@
 						<!-- /SEARCH BAR -->
 
 
-						<div id="success-alert" class="alert alert-success alert-dismissible fade" role="alert">
-							<strong>Success!</strong> Product added to cart successfully.
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>
+
 
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
@@ -106,7 +90,7 @@
 										<span>Your Cart</span>
 										<div class="qty">{{cart.count}}</div>
 									</a>
-									<div class="cart-dropdown">
+									<div class="cart-dropdown" style="overflow-y: hidden;">
 										            <div class="cart-list" ng-repeat="item in cart.items | limitTo: 5">
 										                <div class="product-widget">
 										                    <div class="product-img">
@@ -125,9 +109,9 @@
 											<small>{{cart.count}} Item(s) selected</small>
 											<h5>SUBTOTAL: ${{cart.amount | number : 2}}</h5>
 										</div>
-										<div class=" row" style="width: 100%">
-											<button type="button" class="btn btn-dark"><a class="text-center" th:href="@{/cart/view}">View Cart</a></button>
-
+										<div class="cart-btns " style="width: 100%">
+											<a class="text-center" th:href="@{/cart/view}">View Cart</a>
+											<a href="#"  ng-click="cart.clear()" >Clear  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
 								</div>
@@ -161,12 +145,26 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li ng-class="{ 'active': isActive('/home') }"><a ng-click="setActive('/home')" th:href="@{/home}">Home</a></li>
-						<li ng-class="{ 'active': isActive('/security/login/form') }"><a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a></li>
-						<li ng-class="{ 'active': isActive('/security/logoff') }"><a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a></li>
-						<li ng-class="{ 'active': isActive('/product/store') }"><a ng-click="setActive('/product/store')" th:href="@{/product/store}">Shop</a></li>
-						<li ng-class="{ 'active': isActive('/order/list') }"><a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a></li>
-						<li ng-class="{ 'active': isActive('/admin/home/index') }"><a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a></li>
+						<li ng-class="{ 'active': isActive('/home') }">
+							<a ng-click="setActive('/home')" th:href="@{/home}">Home</a>
+						</li>
+						<li ng-class="{ 'active': isActive('/security/login/form') }">
+<!--							<a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>-->
+							<a ng-click="setActive('/security/login/form')" th:href="@{/login}">Sing In</a>
+						</li>
+
+						<li ng-class="{ 'active': isActive('/security/logoff') }">
+							<a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a>
+						</li>
+						<li ng-class="{ 'active': isActive('/product/store') }">
+							<a ng-click="setActive('/product/store')" th:href="@{/product/store}">Shop</a>
+						</li>
+						<li ng-class="{ 'active': isActive('/order/list') }">
+							<a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a>
+						</li>
+						<li ng-class="{ 'active': isActive('/admin/home/index') }">
+							<a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a>
+						</li>
 					</ul>
 					<!-- /NAV -->
 				</div>
