@@ -19,8 +19,13 @@ th:replace="~{/layout/index :: dynamic(~{ :: main})}">
 				text-overflow: ellipsis;
 			}
 		</style>
-    </head>
-	<body>
+
+
+		<!--		CDN AngularJS-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+	</head>
+	<body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 
 		<main>
 
@@ -92,7 +97,7 @@ th:replace="~{/layout/index :: dynamic(~{ :: main})}">
 						<div class="qty-label">
 							Qty
 							<div class="input-number">
-								<input type="number">
+								<input type="number" ng-change="cart.saveToLocalStorage()" ng-model="item.qty">
 								<span class="qty-up">+</span>
 								<span class="qty-down">-</span>
 							</div>
@@ -436,7 +441,7 @@ th:replace="~{/layout/index :: dynamic(~{ :: main})}">
 
 		</main>
 
-	
+		<script src="/js/shopping-cart-app.js"></script>
 
 	</body>
 </html>

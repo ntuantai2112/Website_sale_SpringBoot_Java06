@@ -11,6 +11,6 @@ public class LoginController {
     //    @GetMapping("")
     @RequestMapping("/login")
     public String showView(){
-        return "login/login";
+        return "security/login";
     }
 }

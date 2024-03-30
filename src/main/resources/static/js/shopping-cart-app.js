@@ -56,6 +56,13 @@ app.controller('shopping-cart-ctrl', function ($scope, $http,$location) {
 
         // Xóa danh sách sản phẩm vào giỏ hàng
         clear() {
+            if (confirm("Are you sure you want to clear your cart?")) {
+                // Xóa tất cả các sản phẩm trong mảng items
+                this.items = [];
+                // Lưu thay đổi vào local storage
+                this.saveToLocalStorage(); // Thêm dòng này để lưu thay đổi
+                alert("Clear Successfully!")
+            }
         },
 
         // Tính thành tiền của 1 sản phẩm
