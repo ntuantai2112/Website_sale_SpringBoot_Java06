@@ -152,26 +152,46 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
+
+                <!--  Phân quyền sử dụng              -->
+
                 <li ng-class="{ 'active': isActive('/home') }">
                     <a ng-click="setActive('/home')" th:href="@{/home}">Home</a>
                 </li>
-                <li ng-class="{ 'active': isActive('/security/login/form') }">
-                    <!--							<a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>-->
-                    <a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>
-                </li>
 
-                <li ng-class="{ 'active': isActive('/security/logoff') }">
-                    <a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a>
-                </li>
                 <li ng-class="{ 'active': isActive('/product/store') }">
                     <a ng-click="setActive('/product/store')" th:href="@{/product/store}">Shop</a>
                 </li>
-                <li ng-class="{ 'active': isActive('/order/list') }">
-                    <a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a>
-                </li>
-                <li ng-class="{ 'active': isActive('/admin/home/index') }">
-                    <a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a>
-                </li>
+
+                <!-- Trường hợp chưa đăng nhặp account là null thì hiển thị nút đăng nhập               -->
+
+                <th:block th:if="${session.account == null}">
+                    <li ng-class="{ 'active': isActive('/security/login/form') }">
+                        <!--							<a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>-->
+                        <a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>
+                    </li>
+                </th:block>
+
+                <!-- Trường hợp đã đăng nhặp, có account rồi là  thì hiển logout      -->
+
+                <th:block th:if="${session.account != null}">
+
+                    <li ng-class="{ 'active': isActive('/security/logoff') }">
+                        <a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a>
+                    </li>
+
+                    <li ng-class="{ 'active': isActive('/order/list') }">
+                        <a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a>
+                    </li>
+
+                    <li th:if="${session.role == 'DIRE' or session.role == 'STAF'}"
+                        ng-class="{ 'active': isActive('/admin/home/index') }">
+                        <a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a>
+                    </li>
+
+
+                </th:block>
+
             </ul>
             <!-- /NAV -->
         </div>
