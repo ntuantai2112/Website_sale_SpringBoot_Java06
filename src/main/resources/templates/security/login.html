@@ -1,6 +1,6 @@
 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login Form</title>
@@ -26,7 +26,7 @@
     </style>
 </head>
 <body>
-<form action="/login" method="post">
+<form th:action="@{/security/login/form}" method="post">
     <section class="vh-100" style="background-color: #508bfc;">
         <div class="container py-5 h-100">
             <div
@@ -39,7 +39,7 @@
 
 
                             <div class="form-outline mb-4">
-                                <input type="text" id="typeEmailX-2" name="userName"
+                                <input type="text" id="typeEmailX-2" name="username"
                                        value="" class="form-control form-control-lg"
                                        placeholder="Username"/>
                                 <!-- <label class="text-danger">Username</label> -->
@@ -58,10 +58,18 @@
                             <!-- Checkbox -->
                             <div class="form-check d-flex justify-content-start mb-4">
                                 <input class="form-check-input" type="checkbox"
-                                       value="" name="remember" id="form1Example3"/>
+                                       value="" name="remember-me" id="form1Example3"/>
 
                                 <label class="form-check-label" for="form1Example3">
                                     Remember me? </label>
+
+
+
+                            </div>
+
+<!--                            Thông báo Message từ Bên Controller truyền qua-->
+                            <div class="mb-2">
+                                 <i class="text-danger " th:text="${message}"></i>
                             </div>
 
 
@@ -84,6 +92,7 @@
                                     style="background-color: #3b5998;" type="submit">
                                 <img src="/assets/img/facebook.png" alt=""> Sign in with facebook
                             </button>
+
 
                         </div>
                     </div>

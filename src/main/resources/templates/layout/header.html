@@ -6,174 +6,181 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<!--		CDN AngularJS-->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!--		CDN AngularJS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
-	<style>
+    <style>
 
-	</style>
+    </style>
 
 
 </head>
 <body ng-app="shopping-cart-app" ng-controller="shopping-cart-ctrl">
 
-        <!-- HEADER -->
-		<header>
-			<!-- TOP HEADER -->
-			<div id="top-header">
-				<div class="container">
-					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> ntuantai2003@gmail.com</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> Thanh Oai,Hà Nội</a></li>
-					</ul>
-					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-					</ul>
-				</div>
-			</div>
-			<!-- /TOP HEADER -->
-
-			<!-- MAIN HEADER -->
-			<div id="header">
-				<!-- container -->
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<!-- LOGO -->
-						<div class="col-md-3">
-							<div class="header-logo">
-								<a href="#" class="logo">
-									<img th:src="@{/css/img/logo.png}" alt="">
-								</a>
-							</div>
-						</div>
-						<!-- /LOGO -->
-
-						<!-- SEARCH BAR -->
-						<div class="col-md-6">
-							<div class="header-search">
-								<form style="display: flex">
-									<select class="input-select">
-										<option  th:each="c : ${cates}" th:text="${c.name}" ></option>
-									</select>
-									<input class="input" placeholder="Search here" >
-									<button class="search-btn">Search</button>
-								</form>
-							</div>
-						</div>
-						<!-- /SEARCH BAR -->
+<!-- HEADER -->
+<header>
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
+            <ul class="header-links pull-left">
+                <li><a href="#"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i> ntuantai2003@gmail.com</a></li>
+                <li><a href="#"><i class="fa fa-map-marker"></i> Thanh Oai,Hà Nội</a></li>
+            </ul>
+            <ul class="header-links pull-right">
+                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+                <li>
+                    <a th:if="${session.account != null}" href="#"><i class="fa fa-user-o"></i>
+                        [[${session.account.fullname}]]</a>
+                    <a th:unless="${session.account != null}" href="#"><i class="fa fa-user-o"></i> My Account</a>
+                </li>
+            </ul>
 
 
+        </div>
+    </div>
+    <!-- /TOP HEADER -->
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img th:src="@{/css/img/logo.png}" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form style="display: flex">
+                            <select class="input-select">
+                                <option th:each="c : ${cates}">[[${c.name}]]</option>
+                            </select>
+                            <input class="input" placeholder="Search here">
+                            <button class="search-btn">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
 
 
-						<!-- ACCOUNT -->
-						<div class="col-md-3 clearfix">
-							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="#">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<!-- /Wishlist -->
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+                        <!-- Wishlist -->
+                        <div>
+                            <a href="#">
+                                <i class="fa fa-heart-o"></i>
+                                <span>Your Wishlist</span>
+                                <div class="qty">2</div>
+                            </a>
+                        </div>
+                        <!-- /Wishlist -->
 
-								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" th:href="@{/cart/view}" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<div class="qty">{{cart.count}}</div>
-									</a>
-									<div class="cart-dropdown" style="overflow-y: hidden;">
-										            <div class="cart-list" ng-repeat="item in cart.items | limitTo: 5">
-										                <div class="product-widget">
-										                    <div class="product-img">
-																<img ng-src="/img/{{ item.image }}" style="width: 50px; height: auto;">
-										                    </div>
-										                    <div class="product-body">
-										                        <h3 class="product-name"><a href="#">{{item.name}}</a></h3>
-										                        <h4 class="product-price"><span class="qty">{{item.qty}}</span>${{item.qty * item.price | number :2}}</h4>
-										                    </div>
-										                    <button ng-click="cart.remove(item.id)" class="delete"><i class="fa fa-close"></i></button>
-										                </div>
-
-
-										            </div>
-										<div class="cart-summary">
-											<small>{{cart.count}} Item(s) selected</small>
-											<h5>SUBTOTAL: ${{cart.amount | number : 2}}</h5>
-										</div>
-										<div class="cart-btns " style="width: 100%">
-											<a class="text-center" th:href="@{/cart/view}">View Cart</a>
-											<a href="#"  ng-click="cart.clear()" >Clear  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<!-- /Cart -->
-
-								<!-- Menu Toogle -->
-								<div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-								</div>
-								<!-- /Menu Toogle -->
-							</div>
-						</div>
-						<!-- /ACCOUNT -->
-					</div>
-					<!-- row -->
-				</div>
-				<!-- container -->
-			</div>
-			<!-- /MAIN HEADER -->
-		</header>
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" th:href="@{/cart/view}" data-toggle="dropdown"
+                               aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Your Cart</span>
+                                <div class="qty">{{cart.count}}</div>
+                            </a>
+                            <div class="cart-dropdown" style="overflow-y: hidden;">
+                                <div class="cart-list" ng-repeat="item in cart.items | limitTo: 5">
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img ng-src="/img/{{ item.image }}" style="width: 50px; height: auto;">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">{{item.name}}</a></h3>
+                                            <h4 class="product-price"><span class="qty">{{item.qty}}</span>${{item.qty *
+                                                item.price | number :2}}</h4>
+                                        </div>
+                                        <button ng-click="cart.remove(item.id)" class="delete"><i
+                                                class="fa fa-close"></i></button>
+                                    </div>
 
 
-    
-    	<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li ng-class="{ 'active': isActive('/home') }">
-							<a ng-click="setActive('/home')" th:href="@{/home}">Home</a>
-						</li>
-						<li ng-class="{ 'active': isActive('/security/login/form') }">
-<!--							<a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>-->
-							<a ng-click="setActive('/security/login/form')" th:href="@{/login}">Sing In</a>
-						</li>
+                                </div>
+                                <div class="cart-summary">
+                                    <small>{{cart.count}} Item(s) selected</small>
+                                    <h5>SUBTOTAL: ${{cart.amount | number : 2}}</h5>
+                                </div>
+                                <div class="cart-btns " style="width: 100%">
+                                    <a class="text-center" th:href="@{/cart/view}">View Cart</a>
+                                    <a href="#" ng-click="cart.clear()">Clear <i
+                                            class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Cart -->
 
-						<li ng-class="{ 'active': isActive('/security/logoff') }">
-							<a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a>
-						</li>
-						<li ng-class="{ 'active': isActive('/product/store') }">
-							<a ng-click="setActive('/product/store')" th:href="@{/product/store}">Shop</a>
-						</li>
-						<li ng-class="{ 'active': isActive('/order/list') }">
-							<a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a>
-						</li>
-						<li ng-class="{ 'active': isActive('/admin/home/index') }">
-							<a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a>
-						</li>
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
 
-		<script src="/js/shopping-cart-app.js"></script>
+
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li ng-class="{ 'active': isActive('/home') }">
+                    <a ng-click="setActive('/home')" th:href="@{/home}">Home</a>
+                </li>
+                <li ng-class="{ 'active': isActive('/security/login/form') }">
+                    <!--							<a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>-->
+                    <a ng-click="setActive('/security/login/form')" th:href="@{/security/login/form}">Sing In</a>
+                </li>
+
+                <li ng-class="{ 'active': isActive('/security/logoff') }">
+                    <a ng-click="setActive('/security/logoff')" th:href="@{/security/logoff}">Sing Out</a>
+                </li>
+                <li ng-class="{ 'active': isActive('/product/store') }">
+                    <a ng-click="setActive('/product/store')" th:href="@{/product/store}">Shop</a>
+                </li>
+                <li ng-class="{ 'active': isActive('/order/list') }">
+                    <a ng-click="setActive('/order/list')" th:href="@{/order/list}">Your Order</a>
+                </li>
+                <li ng-class="{ 'active': isActive('/admin/home/index') }">
+                    <a ng-click="setActive('/admin/home/index')" th:href="@{/admin/home/index}">Administration</a>
+                </li>
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+</nav>
+
+<script src="/js/shopping-cart-app.js"></script>
 
 </body>
 </html>

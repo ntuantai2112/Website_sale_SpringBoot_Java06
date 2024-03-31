@@ -8,16 +8,14 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer {
+public class AccountInterceptorConfig implements WebMvcConfigurer {
 
     @Autowired
-    GlobalInterceptor globalInterceptor;
-
-
+    AccountGlobalInterceptor accountGlobalInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(globalInterceptor)
+        registry.addInterceptor(accountGlobalInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/rest/**","/admin/**","/static/**");
     }

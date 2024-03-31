@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Java 06 Project</title>
+    <style>
+        .hover-red:hover {
+            color: #D10024;
+        }
+    </style>
 
 </head>
 <body>
@@ -25,7 +30,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Laptop<br>Collection</h3>
-                        <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a th:href="@{/product/store}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -39,7 +44,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Accessories<br>Collection</h3>
-                        <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a th:href="@{/product/store}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -53,7 +58,7 @@
                     </div>
                     <div class="shop-body">
                         <h3>Cameras<br>Collection</h3>
-                        <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                        <a th:href="@{/product/store}" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -78,10 +83,9 @@
                     <h3 class="title">New Products</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-                            <li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+                            <li th:each="c, iterStat : ${cates}" th:if="${iterStat.index < 5}">
+                                <a  class="hover-red" th:href="@{|/product/store?cid=${c.id}|}">[[${c.name}]]</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -263,7 +267,7 @@
                     </ul>
                     <h2 class="text-uppercase">hot deal this week</h2>
                     <p>New Collection Up to 50% OFF</p>
-                    <a class="primary-btn cta-btn" href="#">Shop now</a>
+                    <a class="primary-btn cta-btn" th:href="@{/product/store}">Shop now</a>
                 </div>
             </div>
         </div>
@@ -286,10 +290,9 @@
                     <h3 class="title">Top selling</h3>
                     <div class="section-nav">
                         <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Smartphones</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Cameras</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Accessories</a></li>
+                            <li th:each="c, iterStat : ${cates}" th:if="${iterStat.index < 5}">
+                                <a  class="hover-red" th:href="@{|/product/store?cid=${c.id}|}">[[${c.name}]]</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

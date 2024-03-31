@@ -1,5 +1,6 @@
 package com.fpoly.assigment_java06.interceptor;
 
+import com.fpoly.assigment_java06.entity.Account;
 import com.fpoly.assigment_java06.service.AccountService;
 import com.fpoly.assigment_java06.service.CategoryService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class GlobalInterceptor implements HandlerInterceptor {
+public class AccountGlobalInterceptor implements HandlerInterceptor {
 
     @Autowired
     CategoryService categoryService;
@@ -22,8 +23,14 @@ public class GlobalInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        request.setAttribute("cates",categoryService.findAll());
-    }
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
+        Account account = accountService.findByUsernameAndPassword(username, password);
+        if (account != null) {
+            request.setAttribute("account", account);
+            System.out.println(account.getFullname());
+        }
+    }
 
 }
