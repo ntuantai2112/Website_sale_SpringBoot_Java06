@@ -30,25 +30,27 @@ public class OrderServiceImpl implements OrderService {
 
         ObjectMapper mapper = new ObjectMapper();
         Order order = mapper.convertValue(orderData, Order.class);
-        orderRepository.save(order);
 
         TypeReference<List<OrderDetail>> type = new TypeReference<List<OrderDetail>>() {
         };
 
-        JsonNode orderDetailsNode = orderData.get("oderDetails");
-        List<OrderDetail> details = new ArrayList<>();
-        if (orderDetailsNode != null && !orderDetailsNode.isNull()) {
-            details = mapper.convertValue(orderDetailsNode, type)
-                    .stream().peek(d -> d.setOrder(order)).collect(Collectors.toList());
-        }
 
+        List<OrderDetail> details = mapper.convertValue(orderData.get("orderDetails"),type)
+                .stream().peek( d -> d.setOrder(order)).collect(Collectors.toList());
 
+        orderRepository.save(order);
         orderDetailRepository.saveAll(details);
+
         return order;
     }
 
     @Override
     public Order findById(Long id) {
         return orderRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Order> findByUsername(String username) {
+        return orderRepository.findByAccount_Username(username);
     }
 }

@@ -20,23 +20,23 @@
             <form class="row g-3">
                 <div class="col-md-4 form-group">
                     <label for="validationDefault01" class="form-label">Order number:</label>
-                    <input disabled type="text" th:value="${order.id}" class="form-control" id="validationDefault01" required>
+                    <input  readonly type="text" th:value="${order.id}" class="form-control" id="validationDefault01" >
                 </div>
-<!--                <div class="col-md-4 form-group">-->
-<!--                    <label for="validationDefault02" class="form-label">Purchaser:</label>-->
-<!--                    <input disabled type="text"  th:value="${order.account.usernam}" class="form-control" id="validationDefault02" required>-->
-<!--                </div>-->
+                <div class="col-md-4 form-group">
+                    <label for="validationDefault02" class="form-label">Purchaser:</label>
+                    <input readonly type="text" th:value="${order.account.username}" class="form-control" id="validationDefault02" >
+                </div>
                 <div class="col-md-4">
                     <label for="validationDefaultUsername" class="form-label">Purchased Date:</label>
                     <div class="form-group">
-                        <input disabled type="text"  th:value="${order.createDate}" class="form-control" id="validationDefaultUsername"
-                               aria-describedby="inputGroupPrepend2" required>
+                        <input readonly type="text"  th:value="${#dates.format(order.createDate, 'dd-MM-yyyy')}" class="form-control" id="validationDefaultUsername"
+                               aria-describedby="inputGroupPrepend2" >
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="form-group">
-                        <textarea  th:value="${order.address}" disabled class="input" placeholder="Shipping Address"></textarea>
+                        <textarea  th:text="${order.address}" disabled readonly class="input" placeholder="Shipping Address"></textarea>
                     </div>
                 </div>
 
@@ -61,11 +61,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                    <tr th:each="detail : ${order.orderDetails}" th:object="${detail}" >
+                        <th scope="row">[[*{product.id}]]</th>
+                        <td>[[*{product.name}]]</td>
+                        <td>[[*{#numbers.formatDecimal(price,0,'COMMA',2,'POINT')}]]</td>
+                        <td>[[*{quantity}]]</td>
+                        <td>[[*{#numbers.formatDecimal(price * quantity ,0,'COMMA',2,'POINT')}]]</td>
                     </tr>
 
                     </tbody>

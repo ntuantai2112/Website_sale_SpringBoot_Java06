@@ -119,7 +119,7 @@ app.controller('shopping-cart-ctrl', function ($scope, $http,$location) {
         get orderDetails() {
             return $scope.cart.items.map(item => {
                 return {
-                    product: { id: item.id },
+                    product:{id: item.id },
                     price: item.price,
                     quantity: item.qty
                 }
@@ -128,6 +128,8 @@ app.controller('shopping-cart-ctrl', function ($scope, $http,$location) {
 
         purchase() {
             var order = angular.copy(this);
+            console.log(order);
+            console.log(this.orderDetails);
             // Gọi hàm để lấy giá trị username từ ô input
             // $scope.getUsername();
 

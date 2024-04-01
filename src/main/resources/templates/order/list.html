@@ -11,7 +11,42 @@
 </head>
 <body>
     <main>
-        <h1>Order List</h1>
+        <div class="container" >
+            <div class="card border" style="margin-top: 30px;margin-bottom: 30px; ">
+                <div class="card-header bg-primary">
+                    <h1 class="text-white" style="color: white">Your Orders Purchased</h1>
+                </div>
+
+                <div  class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Order No.</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Shipping Address</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order, state : ${orders}"  >
+                            <th scope="row">[[${state.index}]]</th>
+                            <td>[[${order.id}]]</td>
+                            <td>[[${order.createDate}]]</td>
+                            <td>[[${order.address}]]</td>
+                            <td>
+                                <button type="button" class="btn btn-secondary"><a th:href="@{|/order/detail/${order.id}|}">Detail</a></button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
     </main>
 </body>
 </html>
