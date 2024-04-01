@@ -10,8 +10,72 @@
 
 </head>
 <body>
-        <main>
-            <h1>Order Detail</h1>
-        </main>
+<main >
+    <div class="container" >
+        <div class="card border" style="margin-top: 30px;margin-bottom: 30px; "  >
+            <div class="card-header bg-primary">
+                <h1 class="text-white" style="color: white">Shoppring Cart</h1>
+            </div>
+
+            <form class="row g-3">
+                <div class="col-md-4 form-group">
+                    <label for="validationDefault01" class="form-label">Order number:</label>
+                    <input disabled type="text" th:value="${order.id}" class="form-control" id="validationDefault01" required>
+                </div>
+<!--                <div class="col-md-4 form-group">-->
+<!--                    <label for="validationDefault02" class="form-label">Purchaser:</label>-->
+<!--                    <input disabled type="text"  th:value="${order.account.usernam}" class="form-control" id="validationDefault02" required>-->
+<!--                </div>-->
+                <div class="col-md-4">
+                    <label for="validationDefaultUsername" class="form-label">Purchased Date:</label>
+                    <div class="form-group">
+                        <input disabled type="text"  th:value="${order.createDate}" class="form-control" id="validationDefaultUsername"
+                               aria-describedby="inputGroupPrepend2" required>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea  th:value="${order.address}" disabled class="input" placeholder="Shipping Address"></textarea>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
+        <div class="card border" style="margin-top: 30px;margin-bottom: 30px; ">
+            <div class="card-header bg-primary">
+                <h1 class="text-white" style="color: white">Order Lines</h1>
+            </div>
+
+            <div  class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</main>
 </body>
 </html>

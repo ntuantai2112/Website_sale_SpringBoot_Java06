@@ -101,6 +101,51 @@ app.controller('shopping-cart-ctrl', function ($scope, $http,$location) {
     $scope.cart.loadFromLocalStorage();
 
 
+    $scope.getUsername = function() {
+        var accountUsernameInput = document.getElementById('usernameInput');
+        if (accountUsernameInput) {
+            var accountUsername = accountUsernameInput.value;
+            console.log(accountUsername);
+        }
+
+    };
+
+    //    Định nghĩa đối tượng order
+    $scope.order = {
+        createDate: new Date(),
+        address: "",
+        account: {  username: $scope.getUsername() || "staff" }, // Khởi tạo username trống
+
+        get orderDetails() {
+            return $scope.cart.items.map(item => {
+                return {
+                    product: { id: item.id },
+                    price: item.price,
+                    quantity: item.qty
+                }
+            });
+        },
+
+        purchase() {
+            var order = angular.copy(this);
+            // Gọi hàm để lấy giá trị username từ ô input
+            // $scope.getUsername();
+
+            // Thực hiện đặt hàng
+            $http.post("/rest/orders", order).then(resp => {
+                alert("Đặt hàng thành công!");
+                $scope.cart.items = [];
+                $scope.cart.saveToLocalStorage();
+                location.href = "/order/detail/" + resp.data.id;
+
+            }).catch(error => {
+                alert("Đặt hàng lỗi!");
+                console.log(error);
+            })
+        }
+    };
+
+
     // Kiểm tra xem một mục có phải là active hay không dựa trên địa chỉ URL hiện tại
     $scope.isActive = function (viewLocation) {
         return viewLocation === $location.path();
